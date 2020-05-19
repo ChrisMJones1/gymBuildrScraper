@@ -17,4 +17,4 @@ class StackItem(scrapy.Item):
     imageUrl = scrapy.Field()
     categories = scrapy.Field()
     description = scrapy.Field()
-    weight = scrapy.Field()
+    rating = scrapy.Field()
