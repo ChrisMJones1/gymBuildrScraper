@@ -5,14 +5,18 @@ from stack.items import StackItem
 
 
 class RoguebarsToscrapeSpider(scrapy.Spider):
-    name = 'roguebars-toscrape'
+    name = 'roguebars'
     allowed_domains = ['roguecanada.ca']
-    start_urls = ['http://roguecanada.ca/weightlifting-bars-plates']
+    start_urls = [
+        'http://roguecanada.ca/weightlifting-bars-plates',
+        'https://www.roguecanada.ca/strength-equipment',
+        'https://www.roguecanada.ca/conditioning'
+    ]
 
     def parse(self, response):
         stackitem = StackItem()
         for item in response.css("li.item"):
-            stackitem['_id'] = item.xpath("@data-item-sku").extract()
+            stackitem['sku'] = item.xpath("@data-item-sku").extract()
 
             stackitem['productName'] = item.xpath(".//h2/a/text()").extract_first()
             stackitem['price'] = item.xpath('.//span[@class="price"]/text()').extract_first()
@@ -24,7 +28,7 @@ class RoguebarsToscrapeSpider(scrapy.Spider):
 
     def parse_item(self, response):
         stackitem = response.meta['stackitem']
-        stackitem['description'] = response.xpath('.//div[@class="block_content"]/p/text()').extract()
+        stackitem['description'] = response.xpath('.//p/text()').extract()
         stackitem['rating'] = response.xpath('.//span[@itemprop="ratingValue"]/text()').extract_first()
         stackitem['categories'] = response.xpath('.//li[contains(@class, "category")]/a/text()').extract()
         return stackitem

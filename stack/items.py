@@ -11,7 +11,7 @@ import scrapy
 class StackItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    _id = scrapy.Field()
+    sku = scrapy.Field()
     productName = scrapy.Field()
     price = scrapy.Field()
     imageUrl = scrapy.Field()

@@ -64,10 +64,12 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'stack.pipelines.StackPipeline': 300,
-#}
-
+ITEM_PIPELINES = {
+    'stack.pipelines.StackPipeline': 300,
+    'stack.pipelines.MongoPipeline': 800
+}
+MONGO_URI = 'mypymongoURL'
+MONGO_DB = 'data'
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True
